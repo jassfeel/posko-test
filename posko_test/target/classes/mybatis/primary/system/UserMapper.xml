@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="daeucna.mapper.primary.system.UserMapper">
+	
+    <select id="getUsers" parameterType="UserDto" resultType="UserDto">
+		SELECT
+		    m.user_id
+		    , m.activated
+		    , m.nickname
+		    , null as password
+			, m.username 
+		FROM public.users m
+		ORDER BY 
+		    m.username
+    </select>
+    
+    <update id="saveUser" parameterType="UserDto">
+		MERGE INTO public.users m
+		USING (
+			SELECT
+			    #{activated} as activated
+			    , #{nickname} as nickname
+			    , #{username} as username
+				<if test='password != null and !password.equals("")'>
+				    , #{password} as password
+				</if>									
+		) s
+		ON (
+			m.username = s.username
+		)
+		WHEN MATCHED THEN
+			UPDATE SET
+				activated = s.activated
+				, nickname = s.nickname
+				, username = s.username
+				<if test='password != null and !password.equals("")'>
+					, password = s.password
+				</if>									
+		WHEN NOT MATCHED THEN
+			INSERT (
+				activated	
+				, nickname
+				, username
+				<if test='password != null and !password.equals("")'>
+					, password
+				</if>									
+			) VALUES (
+				s.activated	
+				, s.nickname
+				, s.username
+				<if test='password != null and !password.equals("")'>
+					, s.password
+				</if>									
+			)
+    </update>
+    
+    <delete id="deleteUser" parameterType="UserDto">
+		DELETE FROM public.users m
+		WHERE
+			user_id = #{userId}
+    </delete>
+            
+            
+    <select id="getUsersAuthority" parameterType="UserAuthorityDto" resultType="UserAuthorityDto">
+		SELECT 
+			m.user_id
+			, s1.username
+			, s2.authority_name
+		FROM public.user_authority m
+			inner join public.users s1
+			on s1.user_id = m.user_id
+			inner join public.authority s2
+			on s2.authority_name = m.authority_name
+		WHERE 1=1
+			<if test='username != null and !username.equals("")'>
+				and s1.username like ('%' || #{username} || '%')
+			</if>									
+		ORDER BY m.user_id ASC
+    </select>
+            
+    <update id="saveUserAuthority" parameterType="UserAuthorityDto">
+		MERGE INTO public.user_authority m
+		USING (
+			SELECT
+			    (SELECT user_id FROM public.users WHERE username=#{username}) as user_id
+			    , #{authorityName} as authority_name
+		) s
+		ON (
+			m.user_id = s.user_id
+		)
+		WHEN MATCHED THEN
+			UPDATE SET
+				authority_name = s.authority_name
+		WHEN NOT MATCHED THEN
+			INSERT (
+				user_id	
+				, authority_name
+			) VALUES (
+				s.user_id	
+				, s.authority_name
+			)
+    </update>
+    
+    <delete id="deleteUserAuthority" parameterType="UserAuthorityDto">
+		DELETE FROM public.user_authority m
+		WHERE
+			user_id = #{userId}
+    </delete>
+                     
+    <select id="getUserList" parameterType="Map" resultType="Map">
+		SELECT 
+			user_id
+			, username
+		FROM public.users
+		WHERE 
+			activated = true
+		ORDER BY username ASC
+    </select>
+
+    <select id="getAuthorityList" parameterType="Map" resultType="Map">
+		SELECT 
+			authority_name
+		FROM public.authority
+		ORDER BY authority_name ASC
+    </select>
+                        
+</mapper>

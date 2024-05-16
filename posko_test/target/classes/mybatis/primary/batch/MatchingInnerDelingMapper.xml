@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="daeucna.mapper.primary.batch.MatchingInnerDelingMapper">
+	
+	<!-- 작업리스트 -->
+	<select id="getCustomItemReadData" parameterType="map" resultType="map">
+		SELECT 
+			sys_se
+			, accnut_ym
+			, cpr_code
+			, partn_cpr
+		FROM
+			(
+			SELECT
+				    sys_se
+				    , accnut_ym
+				    , cpr_code
+				    , partn_cpr
+				    , case when count(*) > 0 then 1 else 0 end as cnt
+				FROM
+				    public.batch_tbcr_inner_delng
+				WHERE
+					sys_se = #{sysSe}
+					and accnut_ym = #{accnutYm}
+					and mtch_ty is null
+					and dta_ty in ('11','21','31','33','35','37','41')
+				GROUP BY
+				    sys_se
+				    , accnut_ym
+				    , cpr_code
+				    , partn_cpr
+			union all
+			SELECT
+				    sys_se
+				    , accnut_ym
+				    , partn_cpr as cpr_code
+				    , cpr_code as partn_cpr
+				    , case when count(*) > 0 then 1 else 0 end as cnt
+				FROM
+				    public.batch_tbcr_inner_delng
+				WHERE
+					sys_se = #{sysSe}
+					and accnut_ym = #{accnutYm}
+					and mtch_ty is null
+					and dta_ty in ('12','22','32','34','36','38','42')
+				GROUP BY
+				    sys_se
+				    , accnut_ym
+				    , cpr_code
+				    , partn_cpr
+			) m
+		GROUP BY	
+			sys_se
+			, accnut_ym
+			, cpr_code
+			, partn_cpr
+		HAVING sum(cnt) > 1	
+	</select>
+	
+	<!-- 작업키 업데이트 -->
+	<update id="setDataMakeCompareKy" parameterType="map">
+		UPDATE public.batch_tbcr_inner_delng
+		SET
+		    ${compareKey} = ${makeCompareKey}
+		WHERE
+			sys_se = #{sysSe}
+			and accnut_ym = #{accnutYm}	
+			and cpr_code = #{cprCode}
+			and partn_cpr = #{partnCpr}
+			<foreach collection="cond" item="item" open="" close="" separator="">
+				and ${item}
+			</foreach>
+	</update>
+
+	<!-- 매칭작업할 데이타 가져오기 -->
+	<select id="getMatchingData" parameterType="map" resultType="map">
+		SELECT
+		    accnut_ym
+		    , compare_ky
+			, ${amtField}
+		FROM
+		    public.batch_tbcr_inner_delng	
+		WHERE
+			sys_se = #{sysSe}
+			and accnut_ym = #{accnutYm}	
+			and compare_ky is not null
+			and cpr_code = #{cprCode}
+			and partn_cpr = #{partnCpr}
+			<foreach collection="cond" item="item" open="" close="" separator="">
+				and ${item}
+			</foreach>
+			group by
+			    accnut_ym,
+				compare_ky		
+	</select>
+	
+	<!-- 매칭결과 업데이트 -->
+	<select id="getMatchingResult" parameterType="map" resultType="map">
+		SELECT
+			sys_se
+		    , accnut_ym
+		    , sn
+			, compare_ky			
+		FROM
+		    public.batch_tbcr_inner_delng	
+		WHERE
+			sys_se = #{sysSe}
+			and accnut_ym = #{accnutYm}	
+			and compare_ky is not null
+			and cpr_code = #{cprCode}
+			and partn_cpr = #{partnCpr}
+			<foreach collection="cond" item="item" open="" close="" separator="">
+				and ${item}
+			</foreach>
+	</select>
+	
+
+	<update id="setResult" parameterType="map">
+		<foreach collection="itemList" item="item" separator=";">
+		UPDATE public.batch_tbcr_inner_delng
+		SET
+			mtch_sys = 'AUTO',
+		    ${item.matchingType} = #{item.matchingTypeVal},
+		    ${item.matchingTypeName} = #{item.matchingTypeNameVal},
+		    ${item.matchingNumber} = #{item.matchingNumberVal}
+		WHERE
+			sys_se = #{item.sys_se}
+			and accnut_ym = #{item.accnut_ym}	
+			and sn = #{item.sn}
+		</foreach>
+	</update>	
+ 
+
+
+
+
+
+ 	<update id="deleteOriginalData" parameterType="map">
+		DELETE FROM tbcr_transaction_history
+		WHERE
+			cons_group = #{sysSe}
+			and account_period = #{accnutYm}
+			
+	</update>
+
+ 
+ 	<update id="insertOriginalData" parameterType="map">
+		INSERT INTO tbcr_transaction_history (
+		    session_id,
+		    cons_group,
+		    ledger,
+		    account_period,
+		    seq,
+		    tran_type,
+		    own_comp,
+		    tran_comp,
+		    comp_acct_code,
+		    comp_prod_code,
+		    recon_key,
+		    tran_date,
+		    tran_currency,
+		    tran_amt,
+		    book_amt,
+		    group_amt,
+		    book_cost,
+		    document_no,
+		    remark,
+		    cons_acct_code,
+		    cons_acct_name,
+		    prod_code,
+		    adjust_type,
+		    adjust_remark,
+		    if_account_period,
+		    if_comp_code,
+		    if_file_id,
+		    if_source,
+		    equal_check,
+		    cons_own_comp,
+		    cons_tran_comp,
+		    invoice_no,
+		    lc_no,
+		    bl_no,
+		    own_biz_no,
+		    partner_biz_no,
+		    acct_date,
+		    matching_cause,
+		    match_key	
+		) values 
+		<foreach collection="itemList" item="item" separator=",">
+		(
+		    #{item.SESSION_ID},
+		    #{item.CONS_GROUP},
+		    #{item.LEDGER},
+		    #{item.ACCOUNT_PERIOD},
+		    #{item.SEQ},
+		    #{item.TRAN_TYPE},
+		    #{item.OWN_COMP},
+		    #{item.TRAN_COMP},
+		    #{item.COMP_ACCT_CODE},
+		    #{item.COMP_PROD_CODE},
+		    #{item.RECON_KEY},
+		    #{item.TRAN_DATE},
+		    #{item.TRAN_CURRENCY},
+		    #{item.TRAN_AMT},
+		    #{item.BOOK_AMT},
+		    #{item.GROUP_AMT},
+		    #{item.BOOK_COST},
+		    #{item.DOCUMENT_NO},
+		    #{item.REMARK},
+		    #{item.CONS_ACCT_CODE},
+		    #{item.CONS_ACCT_NAME},
+		    #{item.PROD_CODE},
+		    #{item.ADJUST_TYPE},
+		    #{item.ADJUST_REMARK},
+		    #{item.IF_ACCOUNT_PERIOD},
+		    #{item.IF_COMP_CODE},
+		    #{item.IF_FILE_ID},
+		    #{item.IF_SOURCE},
+		    #{item.EQUAL_CHECK},
+		    #{item.CONS_OWN_COMP},
+		    #{item.CONS_TRAN_COMP},
+		    #{item.INVOICE_NO},
+		    #{item.LC_NO},
+		    #{item.BL_NO},
+		    #{item.OWN_BIZ_NO},
+		    #{item.PARTNER_BIZ_NO},
+		    #{item.ACCT_DATE},
+		    #{item.MATCHING_CAUSE},
+		    #{item.MATCH_KEY}
+		)
+		</foreach>
+	 </update>
+
+	<update id="deleteData" parameterType="map">
+		DELETE FROM batch_tbcr_inner_delng
+		WHERE
+			sys_se = #{sysSe}
+			and accnut_ym = #{accnutYm}			
+	</update>
+	 
+	<update id="insertDataFromOriginal" parameterType="map">
+		INSERT INTO
+		    batch_tbcr_inner_delng
+		        (
+		            sys_se
+		            , accnut_ym
+		            , sn
+		            , dta_ty
+		            , cpr_code
+		            , partn_cpr
+		            , cpr_acnt_code
+		            , cnnc_acnt_code
+		            , cnnc_acnt_nm
+		            , delng_de
+		            , elcty_de
+		            , chit_no
+		            , cmpnsp_ky
+		            , ext_key1
+		            , ext_key2
+		            , ext_key3
+		            , ext_key4
+		            , ext_key5
+		            , delng_crncy
+		            , delng_amt
+		            , acntbk_amt
+		            , group_amt
+		            , suply_amount
+		            , sumry
+		            , org_mtch_ty
+		            , org_mtch_ky
+		            , new_mtch_ty
+		            , new_mtch_ky
+		            , compare_ky
+		            , mtch_ty
+		            , mtch_ty_nm
+		            , mtch_ky
+		        )
+		SELECT
+		    cons_group
+		    , account_period
+		    , seq
+		    , tran_type
+		    , own_comp
+		    , tran_comp
+		    , comp_acct_code
+		    , cons_acct_code
+		    , cons_acct_name
+		    , tran_date
+		    , acct_date
+		    , document_no
+		    , recon_key
+			, null
+		    , invoice_no
+		    , lc_no
+		    , bl_no
+			, null
+		    , tran_currency
+		    , tran_amt
+		    , book_amt
+		    , group_amt
+		    , book_cost
+		    , remark
+		    , matching_cause
+		    , match_key
+			, null
+			, null
+			, null
+			, null
+			, null
+			, null
+		FROM
+		    tbcr_transaction_history
+		WHERE
+			cons_group = #{sysSe}
+			and account_period = #{accnutYm}
+	 </update>
+
+	<update id="deleteDataAi" parameterType="map">
+		DELETE FROM batch_tbcr_inner_delng_ai
+		WHERE
+			sys_se = #{sysSe}
+			and accnut_ym = #{accnutYm}
+			
+	</update>
+	 
+	<update id="insertDataAiFromOriginal" parameterType="map">
+		INSERT INTO
+		    batch_tbcr_inner_delng_ai
+		        (
+		            sys_se
+		            , accnut_ym
+		            , sn
+					, ai_key1
+					, ai_key2
+					, ai_key3
+					, ai_key4
+					, ai_key5
+					, ai_key6
+					, ai_key7
+					, ai_key8
+					, ai_key9
+					, ai_key10		            
+		        )
+		SELECT
+		    cons_group
+		    , account_period
+		    , seq
+		    , regexp_replace(document_no, '[^0-9a-zA-Z]', '',1,0) as ai_key1
+		    , regexp_replace(recon_key, '[^0-9a-zA-Z]', '',1,0) as ai_key2
+		    , '' as ai_key3
+		    , '' as ai_key4
+		    , '' as ai_key5
+		    , '' as ai_key6
+		    , '' as ai_key7
+		    , '' as ai_key8
+		    , '' as ai_key9
+			, '' as ai_key10
+		FROM
+		    tbcr_transaction_history
+		WHERE
+			cons_group = #{sysSe}
+			and account_period = #{accnutYm}
+	 </update> 
+	 
+	<update id="updateNewMatchKey" parameterType="map">
+		merge into batch_tbcr_inner_delng m
+		using 
+				(
+				select 
+					sys_se,
+					accnut_ym,
+					sn,
+					org_mtch_ty,
+					org_mtch_ky,
+					mtch_ty as new_mtch_ty,
+					mtch_ky,
+					DENSE_RANK() over (order by mtch_ty, mtch_ky) AS new_mtch_ky
+				from batch_tbcr_inner_delng
+				where
+					sys_se = #{sysSe}
+					AND accnut_ym = #{accnutYm}
+					AND mtch_ty is not null
+				) t
+		on 
+			m.sys_se = t.sys_se
+			and m.accnut_ym = t.accnut_ym
+			and m.sn = t.sn
+		when matched then
+			update set
+				new_mtch_ty = t.new_mtch_ty,
+				new_mtch_ky = t.new_mtch_ky		
+	</update>	
+	
+	
+	
+	<!-- 매칭작업할 데이타 가져오기 -->
+	<select id="getMatchingExtraDataOne" parameterType="map" resultType="map">
+		SELECT	
+			sys_se		
+		    , accnut_ym
+		    , sn
+		    , '' as compare_ky
+		    , delng_de
+			, delng_amt
+		FROM
+		    public.batch_tbcr_inner_delng	
+		WHERE
+			sys_se = #{sysSe}
+			and accnut_ym = #{accnutYm}	
+			and cpr_code = #{cprCode}
+			and partn_cpr = #{partnCpr}
+			and mtch_ky is null
+			and dta_ty in ('11','21','31','33','35','37','41')	
+			and delng_amt != 0		
+		ORDER BY 
+			delng_de
+	</select>
+
+	<!-- 매칭작업할 데이타 가져오기 -->
+	<select id="getMatchingExtraDataTwo" parameterType="map" resultType="map">
+		SELECT	
+			sys_se		
+		    , accnut_ym
+		    , sn
+		    , '' as compare_ky
+		    , delng_de
+			, delng_amt
+		FROM
+		    public.batch_tbcr_inner_delng	
+		WHERE
+			sys_se = #{sysSe}
+			and accnut_ym = #{accnutYm}	
+			and cpr_code = #{cprCode}
+			and partn_cpr = #{partnCpr}
+			and mtch_ky is null
+			and dta_ty in ('12','22','32','34','36','38','42')
+			and delng_amt != 0		
+		ORDER BY 
+			delng_de
+	</select>
+	 
+	<update id="setExtraResult" parameterType="map">
+		<foreach collection="itemList" item="item" separator=";">
+		UPDATE public.batch_tbcr_inner_delng
+		SET
+		    mtch_sys = #{item.mtch_sys},
+		    mtch_ty = #{item.mtch_ty},
+		    mtch_ty_nm = #{item.mtch_ty_nm},
+		    mtch_ky = #{item.mtch_ky}
+		WHERE
+			sys_se = #{item.sys_se}
+			and accnut_ym = #{item.accnut_ym}	
+			and sn = #{item.sn}
+		</foreach>
+	</update>	
+
+	<update id="createUserJob" parameterType="map">
+		INSERT INTO public.batch_user_job_status (
+			user_job_group,
+			user_job_id,
+			user_job_name,
+			start_time,
+			status
+		) VALUES (
+			#{user_job_group},
+			#{user_job_id},
+			#{user_job_name},
+			now(),
+			'Started'
+		)
+	</update>	
+
+	<update id="finishUserJob" parameterType="map">
+		UPDATE public.batch_user_job_status 
+		SET
+			end_time = now(),
+			status = 'Finished',
+			exit_code = #{exit_code},
+			exit_message = #{exit_message}
+		WHERE
+			user_job_id = #{user_job_id}
+	</update>	
+	 
+	<!-- AI 작업리스트 -->
+	<select id="getAiReadData" parameterType="map" resultType="map">
+		SELECT 
+			sys_se
+			, accnut_ym
+			, cpr_code
+			, partn_cpr
+			, delng_crncy
+		FROM
+			(
+			SELECT
+				    sys_se
+				    , accnut_ym
+				    , cpr_code
+				    , partn_cpr
+				    , delng_crncy
+				    , case when count(*) > 0 then 1 else 0 end as cnt
+				FROM
+				    public.batch_tbcr_inner_delng
+				WHERE
+					sys_se = #{sysSe}
+					and accnut_ym = #{accnutYm}
+					and mtch_ty is null
+					and dta_ty in ('11','21','31','33','35','37','41')
+				GROUP BY
+				    sys_se
+				    , accnut_ym
+				    , cpr_code
+				    , partn_cpr
+				    , delng_crncy
+			union all
+			SELECT
+				    sys_se
+				    , accnut_ym
+				    , partn_cpr as cpr_code
+				    , cpr_code as partn_cpr
+				    , delng_crncy
+				    , case when count(*) > 0 then 1 else 0 end as cnt
+				FROM
+				    public.batch_tbcr_inner_delng
+				WHERE
+					sys_se = #{sysSe}
+					and accnut_ym = #{accnutYm}
+					and mtch_ty is null
+					and dta_ty in ('12','22','32','34','36','38','42')
+				GROUP BY
+				    sys_se
+				    , accnut_ym
+				    , cpr_code
+				    , partn_cpr
+				    , delng_crncy
+			) m
+		GROUP BY	
+			sys_se
+			, accnut_ym
+			, cpr_code
+			, partn_cpr
+			, delng_crncy
+		HAVING sum(cnt) > 1	
+	</select>	
+
+	<!-- JOB Status -->
+	<select id="getJobInstance" parameterType="map" resultType="map">
+		SELECT
+		    job_instance_id
+		    , version
+		    , job_name
+		    , job_key
+		FROM
+		    batch_job_instance
+		WHERE
+			job_name = #{jobName}
+	</select>
+	
+	<!-- JOB Status -->
+	<select id="getJobStatus" parameterType="map" resultType="map">
+		SELECT
+		    job_execution_id
+		    , version
+		    , job_instance_id
+		    , create_time
+		    , start_time
+		    , end_time
+		    , status
+		    , exit_code
+		    , exit_message
+		    , last_updated
+		FROM
+		    batch_job_execution
+		WHERE
+			job_instance_id = #{jobInstanceId}
+		ORDER BY 
+			job_execution_id ASC 		    		
+	</select>
+
+	<select id="getJobParameter" parameterType="map" resultType="map">
+		SELECT
+		    job_execution_id
+		    , parameter_name
+		    , parameter_type
+		    , parameter_value
+		    , identifying
+		FROM
+		    public.batch_job_execution_params
+		WHERE
+			job_execution_id = #{jobExecutionId}
+		ORDER BY 
+			job_execution_id ASC 		    		
+	</select>
+
+	<!-- Step Status -->
+	<select id="getStepStatus" parameterType="map" resultType="map">
+		SELECT
+		    step_execution_id
+		    , version
+		    , step_name
+		    , job_execution_id
+		    , create_time
+		    , start_time
+		    , end_time
+		    , status
+		    , commit_count
+		    , read_count
+		    , filter_count
+		    , write_count
+		    , read_skip_count
+		    , write_skip_count
+		    , process_skip_count
+		    , rollback_count
+		    , exit_code
+		    , exit_message
+		    , last_updated
+		FROM
+		    pbatch_step_execution
+		WHERE
+			job_execution_id = #{jobExecutionId}
+		ORDER BY 
+			job_execution_id ASC
+	</select>
+
+	<!-- User Job Status -->
+	<select id="getUserJobStatus" parameterType="map" resultType="map">
+		SELECT
+		    user_job_id
+		    , user_job_name
+		    , start_time
+		    , end_time
+		    , status
+		    , exit_code
+		    , exit_message
+		    , user_job_group
+		FROM
+		    public.batch_user_job_status
+		WHERE
+			user_job_group = #{userJobGroup}
+		ORDER BY 
+			user_job_id ASC
+	</select>	 
+</mapper>

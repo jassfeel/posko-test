@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="daeucna.mapper.primary.system.CodeMapper">
+	
+    <select id="getCmmnCode" parameterType="CodeDto" resultType="CodeDto">
+		SELECT
+		    m.code_ty
+		    , m.cmmn_code
+		    , m.mng_iem_1
+		    , m.mng_iem_2
+		    , m.mng_iem_3
+		    , m.mng_iem_4
+		    , m.ordr
+		    , m.use_at
+		    , m.register
+		    , m.input_de
+		    , m.updusr
+		    , m.updt_de
+			, s.lcal
+			, s.cmmn_code_nm
+		FROM
+		    public.sy_cmmn_code_mng m
+			LEFT OUTER JOIN public.sy_cmmn_code_mng_nls s
+			ON
+				m.code_ty = s.code_ty
+				and m.cmmn_code = s.cmmn_code
+				and lcal = #{lcal}
+		ORDER BY 
+		    m.code_ty
+		    , m.cmmn_code
+    </select>
+    
+    <update id="saveCmmnCode" parameterType="CodeDto">
+		MERGE INTO public.sy_cmmn_code_mng m
+		USING (
+			SELECT
+			    #{codeTy} as code_ty
+			    , #{cmmnCode} as cmmn_code
+			    , #{mngIem1} as mng_iem_1
+			    , #{mngIem2} as mng_iem_2
+			    , #{mngIem3} as mng_iem_3
+			    , #{mngIem4} as mng_iem_4
+			    , #{ordr} as ordr
+			    , #{useAt} as use_at
+			    , #{register} as register
+			    , CURRENT_TIMESTAMP as input_de
+			    , #{updusr} as updusr
+			    , CURRENT_TIMESTAMP as updt_de
+		) s
+		ON (
+			m.code_ty = s.code_ty
+			and m.cmmn_code = s.cmmn_code
+		)
+		WHEN MATCHED THEN
+			UPDATE SET
+				mng_iem_1 = s.mng_iem_1
+				, mng_iem_2 = s.mng_iem_2
+				, mng_iem_3 = s.mng_iem_3
+				, mng_iem_4 = s.mng_iem_4
+				, ordr = s.ordr
+				, use_at = s.use_at
+				, updusr = s.updusr
+				, updt_de = s.updt_de
+		WHEN NOT MATCHED THEN
+			INSERT (
+				code_ty
+				, cmmn_code	
+				, mng_iem_1
+				, mng_iem_2
+				, mng_iem_3
+				, mng_iem_4
+				, ordr
+				, use_at
+				, register
+				, input_de
+			) VALUES (
+				s.code_ty
+				, s.cmmn_code	
+				, s.mng_iem_1
+				, s.mng_iem_2
+				, s.mng_iem_3
+				, s.mng_iem_4
+				, s.ordr
+				, s.use_at
+				, s.register
+				, s.input_de
+			)
+    </update>
+
+    <update id="saveCmmnCodeNls" parameterType="CodeDto">
+		MERGE INTO public.sy_cmmn_code_mng_nls m
+		USING (
+			SELECT
+			    #{codeTy} as code_ty
+			    , #{cmmnCode} as cmmn_code
+			    , #{lcal} as lcal
+			    , #{cmmnCodeNm} as cmmn_code_nm
+			    , #{register} as register
+			    , CURRENT_TIMESTAMP as input_de
+			    , #{updusr} as updusr
+			    , CURRENT_TIMESTAMP as updt_de
+		) s
+		ON (
+			m.code_ty = s.code_ty
+			and m.cmmn_code = s.cmmn_code
+			and m.lcal = s.lcal
+		)
+		WHEN MATCHED THEN
+			UPDATE SET
+				cmmn_code_nm = s.cmmn_code_nm
+				, updusr = s.updusr
+				, updt_de = s.updt_de
+		WHEN NOT MATCHED THEN
+			INSERT (
+				code_ty
+				, cmmn_code	
+				, lcal
+				, cmmn_code_nm
+				, register
+				, input_de
+			) VALUES (
+				s.code_ty
+				, s.cmmn_code	
+				, s.lcal
+				, s.cmmn_code_nm
+				, s.register
+				, s.input_de
+			)
+    </update>      
+    
+    <delete id="deleteCmmnCode" parameterType="CodeDto">
+		DELETE FROM public.sy_cmmn_code_mng m
+		WHERE
+			code_ty = #{codeTy}
+			and cmmn_code = #{cmmnCode} 
+    </delete>
+    
+    <delete id="deleteCmmnCodeNls" parameterType="CodeDto">
+		DELETE FROM public.sy_cmmn_code_mng_nls m
+		WHERE
+			code_ty = #{codeTy}
+			and cmmn_code = #{cmmnCode} 
+    </delete>        
+            
+</mapper>

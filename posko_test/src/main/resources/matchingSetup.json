@@ -1,0 +1,3573 @@
+{
+	"matchingSetup": [
+	    {
+			"active": true,
+	        "type": "A-A",
+	        "typeName": "자기수익(대사키),상대비용(대사키),비교(년월,비교키,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null",
+					"cmpnsp_ky is not null",
+					"cmpnsp_ky != ''"
+				],
+				"makeCompareKey": [
+					"cmpnsp_ky"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null",
+					"cmpnsp_ky is not null",
+					"cmpnsp_ky != ''"
+				],
+				"makeCompareKey": [
+					"cmpnsp_ky"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"compare_ky",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	       
+	    {
+			"active": true,
+	        "type": "A-B",
+	        "typeName": "자기채권(대사키),상대채무(대사키),비교(년월,비교키,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null",
+					"cmpnsp_ky is not null",
+					"cmpnsp_ky != ''"
+				],
+				"makeCompareKey": [
+					"cmpnsp_ky"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null",
+					"cmpnsp_ky is not null",
+					"cmpnsp_ky != ''"
+				],
+				"makeCompareKey": [
+					"cmpnsp_ky"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"compare_ky",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+
+	
+	
+	
+	    {
+			"active": true,
+	        "type": "B-A",
+	        "typeName": "자기수익(합산키),상대비용(합산키),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null",
+					"ext_key1 is not null",
+					"ext_key1 != ''"
+				],
+				"makeCompareKey": [
+					"ext_key1"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null",
+					"ext_key1 is not null",
+					"ext_key1 != ''"
+				],
+				"makeCompareKey": [
+					"ext_key1"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "B-B",
+	        "typeName": "자기채권(합산키),상대채무(합산키),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null",
+					"ext_key1 is not null",
+					"ext_key1 != ''"
+				],
+				"makeCompareKey": [
+					"ext_key1"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null",
+					"ext_key1 is not null",
+					"ext_key1 != ''"
+				],
+				"makeCompareKey": [
+					"ext_key1"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+
+	
+	
+	
+	
+
+	    {
+			"active": true,
+	        "type": "C-A",
+	        "typeName": "자기수익(전표번호),상대비용(전표번호),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null",
+					"chit_no is not null",
+					"chit_no != ''"
+				],
+				"makeCompareKey": [
+					"chit_no"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null",
+					"chit_no is not null",
+					"chit_no != ''"
+				],
+				"makeCompareKey": [
+					"chit_no"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "C-B",
+	        "typeName": "자기채권(전표번호),상대채무(전표번호),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null",
+					"chit_no is not null",
+					"chit_no != ''"
+				],
+				"makeCompareKey": [
+					"chit_no"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null",
+					"chit_no is not null"
+				],
+				"makeCompareKey": [
+					"chit_no"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+
+	
+	
+	
+
+
+	    {
+			"active": true,
+	        "type": "D-A",
+	        "typeName": "자기수익(거래일자),상대비용(거래일자),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"delng_de"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"delng_de"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "D-B",
+	        "typeName": "자기채권(거래일자),상대채무(거래일자),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"delng_de"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"delng_de"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+
+
+	
+	
+	
+	    {
+			"active": true,
+	        "type": "E-A",
+	        "typeName": "자기수익(거래월),상대비용(거래월),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"substring(delng_de,1,6)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"substring(delng_de,1,6)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "E-B",
+	        "typeName": "자기채권(거래월),상대채무(거래월),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"substring(delng_de,1,6)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"substring(delng_de,1,6)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+
+
+
+
+
+
+
+
+	    {
+			"active": true,
+	        "type": "F-A",
+	        "typeName": "자기수익(전체),상대비용(전체),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "F-B",
+	        "typeName": "자기채권(전체),상대채무(전체),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+
+
+	
+
+
+	    {
+			"active": true,
+	        "type": "G-A",
+	        "typeName": "개별자기수익,상대개별비용,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "G-B",
+	        "typeName": "개별자기채권,상대개별채무,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+
+
+
+
+
+
+
+
+	    {
+			"active": true,
+	        "type": "H-AA",
+	        "typeName": "자기수익(거래일자),개별상대비용,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	
+	    {
+			"active": true,
+	        "type": "H-AB",
+	        "typeName": "자기수익(거래월),개별상대비용,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	
+	    {
+			"active": true,
+	        "type": "H-AC",
+	        "typeName": "자기수익(전표번호),개별상대비용,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null",
+					"chit_no is not null",
+					"chit_no != ''"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "chit_no"				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	
+	    {
+			"active": true,
+	        "type": "H-AD",
+	        "typeName": "자기수익(합산키),개별상대비용,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null",
+					"ext_key1 is not null",
+					"ext_key1 != ''"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "ext_key1"				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	
+	    {
+			"active": true,
+	        "type": "H-AE",
+	        "typeName": "자기비용(거래일자),개별상대수익,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	
+	    {
+			"active": true,
+	        "type": "H-AF",
+	        "typeName": "자기비용(거래월),개별상대수익,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	
+	    {
+			"active": true,
+	        "type": "H-AG",
+	        "typeName": "자기비용(전표번호),개별상대수익,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null",
+					"chit_no is not null",
+					"chit_no != ''"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "chit_no"				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	
+	    {
+			"active": true,
+	        "type": "H-AH",
+	        "typeName": "자기비용(합산키),개별상대수익,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null",
+					"ext_key1 is not null",
+					"ext_key1 != ''"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "ext_key1"				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	
+	    
+
+
+	    {
+			"active": true,
+	        "type": "H-BA",
+	        "typeName": "자기채권(거래일자),개별상대채무,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	
+	    {
+			"active": true,
+	        "type": "H-BB",
+	        "typeName": "자기채권(거래월),개별상대채무,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	
+	    {
+			"active": true,
+	        "type": "H-BC",
+	        "typeName": "자기채권(전표번호),개별상대채무,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null",
+					"chit_no is not null",
+					"chit_no != ''"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "chit_no"				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	
+	    {
+			"active": true,
+	        "type": "H-BD",
+	        "typeName": "자기채권(합산키),개별상대채무,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "ext_key1"				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	
+	    {
+			"active": true,
+	        "type": "H-BE",
+	        "typeName": "자기채무(거래일자),개별상대채권,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	
+	    {
+			"active": true,
+	        "type": "H-BF",
+	        "typeName": "자기채무(거래월),개별상대채권,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	
+	    {
+			"active": true,
+	        "type": "H-BG",
+	        "typeName": "자기채무(전표번호),개별상대채권,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null",
+					"chit_no is not null",
+					"chit_no != ''"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "chit_no"				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	
+	    {
+			"active": true,
+	        "type": "H-BH",
+	        "typeName": "자기채무(합산키),개별상대채권,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "ext_key1"				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	
+	    
+	    
+
+
+	    {
+			"active": true,
+	        "type": "I-AA",
+	        "typeName": "자기수익(전체),상대비용(겨래월),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "I-AB",
+	        "typeName": "자기수익(전체),상대비용(겨래일자),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "I-AC",
+	        "typeName": "자기비용(전체),상대수익(겨래월),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "I-AD",
+	        "typeName": "자기비용(전체),상대수익(겨래일자),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "I-AE",
+	        "typeName": "자기수익(전체),상대비용(법인계정코드),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cpr_acnt_code"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "I-AF",
+	        "typeName": "자기비용(전체),상대수익(법인계정코드),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cpr_acnt_code"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },    
+
+
+
+	    {
+			"active": true,
+	        "type": "I-BA",
+	        "typeName": "자기채권(전체),상대채무(겨래월),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "I-BB",
+	        "typeName": "자기채권(전체),상대채무(겨래일자),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "I-BC",
+	        "typeName": "자기채무(전체),상대채권(겨래월),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "I-BD",
+	        "typeName": "자기채무(전체),상대채권(겨래일자),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },    
+	    {
+			"active": true,
+	        "type": "I-BE",
+	        "typeName": "자기채권(전체),상대채무(계정코드),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "cpr_acnt_code"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },  
+	    {
+			"active": true,
+	        "type": "I-BF",
+	        "typeName": "자기채무(전체),상대채권(계정코드),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "cpr_acnt_code"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },  
+
+
+
+
+	    {
+			"active": true,
+	        "type": "J-AA",
+	        "typeName": "자기수익(거래월),상대비용(겨래일자),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "J-AB",
+	        "typeName": "자기비용(거래월),상대수익(겨래일자),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "J-AC",
+	        "typeName": "자기수익(거래월),상대비용(계정코드),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cpr_acnt_code"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "J-AD",
+	        "typeName": "자기비용(거래월),상대수익(계정코드),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cpr_acnt_code"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    
+	    {
+			"active": true,
+	        "type": "J-BA",
+	        "typeName": "자기채권(거래월),상대채무(겨래일자),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "J-BB",
+	        "typeName": "자기채무(거래월),상대채권(겨래일자),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "J-BC",
+	        "typeName": "자기채권(거래월),상대채무(계정코드),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cpr_acnt_code"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	    
+	    {
+			"active": true,
+	        "type": "J-BD",
+	        "typeName": "자기채무(거래월),상대채권(계정코드),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cpr_acnt_code"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	 
+
+
+
+
+
+
+
+
+
+
+
+
+
+	    {
+			"active": true,
+	        "type": "K-AA",
+	        "typeName": "자기수익(적요),상대비용(적요),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(sumry, 1, 80)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(sumry, 1, 80)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "K-AB",
+	        "typeName": "자기비용(적요),상대수익(겨래일자),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(sumry, 1, 80)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "K-AC",
+	        "typeName": "자기수익(적요),개별상대비용,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(sumry, 1, 80)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "K-AD",
+	        "typeName": "자기비용(적요),개별상대수익,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(sumry, 1, 80)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	    
+	    {
+			"active": true,
+	        "type": "K-BA",
+	        "typeName": "자기채권(적요),상대채무(겨래일자),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(sumry, 1, 80)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "K-BB",
+	        "typeName": "자기채무(적요),상대채권(겨래일자),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(sumry, 1, 80)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "K-BC",
+	        "typeName": "자기채권(적요),개별상대채무,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(sumry, 1, 80)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },  
+	    {
+			"active": true,
+	        "type": "K-BD",
+	        "typeName": "자기채무(적요),개별상대채권,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(sumry, 1, 80)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    }, 
+
+
+
+
+	    {
+			"active": true,
+	        "type": "L-A",
+	        "typeName": "자기수익(회계일자),상대비용(회계일자),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null",
+					"elcty_de is not null",
+					"elcty_de != ''"
+				],
+				"makeCompareKey": [
+					"elcty_de"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null",
+					"elcty_de is not null",
+					"elcty_de != ''"
+				],
+				"makeCompareKey": [
+					"elcty_de"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "L-AA",
+	        "typeName": "자기수익(회계일자),개별상대비용,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null",
+					"elcty_de is not null",
+					"elcty_de != ''"
+				],
+				"makeCompareKey": [
+					"elcty_de"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "L-AB",
+	        "typeName": "자기비용(회계일자),개별상대수익,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null",
+					"elcty_de is not null",
+					"elcty_de != ''"
+				],
+				"makeCompareKey": [
+					"elcty_de"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	    
+
+
+
+
+
+	    {
+			"active": true,
+	        "type": "M-A",
+	        "typeName": "자기수익(법인계정코드),상대비용(법인계정코드),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"cpr_acnt_code"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"cpr_acnt_code"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "M-AA",
+	        "typeName": "자기수익(법인계정코드),개별상대비용,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"cpr_acnt_code"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "M-AB",
+	        "typeName": "자기비용(법인계정코드),개별상대수익,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"cpr_acnt_code"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	    
+
+
+
+
+	    {
+			"active": true,
+	        "type": "N-A",
+	        "typeName": "자기수익(계정코드),상대비용(계정코드),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"cnnc_acnt_code"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"cnnc_acnt_code"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "N-AA",
+	        "typeName": "자기수익(계정코드),개별상대비용,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"cnnc_acnt_code"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "N-AB",
+	        "typeName": "자기비용(계정코드),개별상대수익,비교(년월,비교키,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"cnnc_acnt_code"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	    
+	    {
+			"active": true,
+	        "type": "N-AC",
+	        "typeName": "자기수익(계정코드),상대비용(법인계정코드),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"cnnc_acnt_code"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"cpr_acnt_code"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "N-AD",
+	        "typeName": "자기비용(계정코드),상대수익(법인계정코드),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"cnnc_acnt_code"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+					"cpr_acnt_code"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+
+
+
+
+	    {
+			"active": true,
+	        "type": "O-A",
+	        "typeName": "자기수익(INVOICE),상대비용(INVOICE),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null",
+					"ext_key2 is not null",
+					"ext_key2 != ''"
+				],
+				"makeCompareKey": [
+					"ext_key2"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null",
+					"ext_key2 is not null",
+					"ext_key2 != ''"
+				],
+				"makeCompareKey": [
+					"ext_key2"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "O-AA",
+	        "typeName": "자기수익(INVOICE),개별상대비용,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null",
+					"ext_key2 is not null",
+					"ext_key2 != ''"
+				],
+				"makeCompareKey": [
+					"ext_key2"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "O-AB",
+	        "typeName": "자기비용(INVOICE),개별상대수익,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null",
+					"ext_key2 is not null",
+					"ext_key2 != ''"
+				],
+				"makeCompareKey": [
+					"ext_key2"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	    
+
+
+
+	    {
+			"active": true,
+	        "type": "P-A",
+	        "typeName": "자기수익(BL),상대비용(BL),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null",
+					"ext_key3 is not null",
+					"ext_key3 != ''"
+				],
+				"makeCompareKey": [
+					"ext_key3"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null",
+					"ext_key3 is not null",
+					"ext_key3 != ''"
+				],
+				"makeCompareKey": [
+					"ext_key3"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "P-AA",
+	        "typeName": "자기수익(BL),개별상대비용,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null",
+					"ext_key3 is not null",
+					"ext_key3 != ''"
+				],
+				"makeCompareKey": [
+					"ext_key3"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "P-AB",
+	        "typeName": "자기비용(BL),개별상대수익,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null",
+					"ext_key3 is not null",
+					"ext_key3 != ''"
+				],
+				"makeCompareKey": [
+					"ext_key3"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	    
+
+
+
+	    {
+			"active": true,
+	        "type": "Q-A",
+	        "typeName": "자기수익(LC),상대비용(LC),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null",
+					"ext_key4 is not null",
+					"ext_key4 != ''"
+				],
+				"makeCompareKey": [
+					"ext_key4"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null",
+					"ext_key4 is not null",
+					"ext_key4 != ''"
+				],
+				"makeCompareKey": [
+					"ext_key4"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "Q-AA",
+	        "typeName": "자기수익(LC),개별상대비용,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null",
+					"ext_key4 is not null",
+					"ext_key4 != ''"
+				],
+				"makeCompareKey": [
+					"ext_key4"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "Q-AB",
+	        "typeName": "자기비용(LC),개별상대수익,비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null",
+					"ext_key4 is not null",
+					"ext_key4 != ''"
+				],
+				"makeCompareKey": [
+					"ext_key4"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "cast(sn as text)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },	    
+	    	    
+
+
+
+
+	    {
+			"active": true,
+	        "type": "Z-AA",
+	        "typeName": "[재실행]자기수익(거래일자),상대비용(거래일자),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "Z-AB",
+	        "typeName": "[재실행]자기수익(거래월),상대비용(거래월),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "Z-AC",
+	        "typeName": "[재실행]자기수익(전체),상대비용(전체),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('11','21')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('12','22')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "Z-BA",
+	        "typeName": "[재실행]자기채권(거래일자),상대채무(거래일자),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "delng_de"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "Z-BB",
+	        "typeName": "[재실행]자기채권(거래월),상대채무(거래월),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym",
+		            "substring(delng_de,1,6)"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    },
+	    {
+			"active": true,
+	        "type": "Z-BC",
+	        "typeName": "[재실행]자기채권(전체),상대채무(전체),비교(년월,거래금액)",
+			
+	        "condOne": {
+				"cond": [
+					"dta_ty in ('31','33','35','37','41')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym"
+				]
+	        },
+	        "condTwo": {
+				"cond": [
+					"dta_ty in ('32','34','36','38','42')",
+					"mtch_ty is null"
+				],
+				"makeCompareKey": [
+		            "sys_se",
+		            "accnut_ym"
+				]
+	        },
+	        "uniqueKey": [
+	            "sys_se",
+	            "accnut_ym",
+	            "sn"
+	        ],
+			"compareKey": "compare_ky",
+			"amtField": "sum(delng_amt) as delng_amt",
+			"compareField": [
+				"accnut_ym",
+				"delng_amt"
+			],
+			"matchingType": "mtch_ty",		
+			"matchingTypeName": "mtch_ty_nm",		
+			"matchingNumber": "mtch_ky"		
+	    }
+
+		
+	]
+}
